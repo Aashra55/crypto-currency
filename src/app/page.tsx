@@ -1,101 +1,96 @@
+'use client';
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import btc from "./images/BTC.png";
+import bnb from "./images/BNB.png";
+import ada from "./images/ADA.png";
+import bch from "./images/BCH.png";
+import doge from "./images/DOGE.png";
+import eth from "./images/ETH.png";
+import ltc from "./images/LTC.png";
+import sol from "./images/SOL.png";
+import xlm from "./images/XLM.png";
+import xrp from "./images/XRP.png";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function Home(){
+  const [coin, setCoin] = useState<any>(null);
+  const myKey = '89e31ad7b841131235b156742293c1c2'
+  useEffect(()=>{
+    fetch(`http://api.coinlayer.com/api/live?access_key=${myKey}`)
+    .then((response)=>response.json())
+    .then((jsonConverted)=>{
+      console.log('Data:',jsonConverted);
+      setCoin(jsonConverted)
+    })
+  },[]);
+  const data = [
+    {
+      name :'BITOCOIN',
+      image : btc,
+      text : `BTC: ${coin?.rates?.BTC} `
+    },
+    {
+      name :'BINANCE',
+      image : bnb,
+      text : `BNB: ${coin?.rates?.BNB} `
+    },
+    {
+      name :'ETHEREUM',
+      image : eth,
+      text : `ETH: ${coin?.rates?.ETH} `
+    },
+    {
+      name :'RIPPLE',
+      image : xrp,
+      text : `XRP: ${coin?.rates?.XRP} `
+    },
+    {
+      name :'LITECOIN',
+      image : ltc,
+      text : `LTC: ${coin?.rates?.LTC} `
+    },
+    {
+      name :'CARDANO',
+      image : ada,
+      text : `ADA: ${coin?.rates?.BCH} `
+    },
+    {
+      name :'STELLAR',
+      image : xlm,
+      text : `XLM: ${coin?.rates?.XLM} `
+    },
+    {
+      name :'DOGECOIN',
+      image : doge,
+      text : `DOGE: ${coin?.rates?.DOGE} `
+    },
+    {
+      name :'SOLANA',
+      image : sol,
+      text : `SOL: ${coin?.rates?.SOL} `
+    },
+    {
+      name :'BITOCIN CASH',
+      image : bch,
+      text : `BCH: ${coin?.rates?.BCH} `
+    }
+  ]
+  return(
+    <div className="w-[100%] flex items-center p-[25px]">
+      <div className="text-[20px] w-[100%]">
+      <h1 className="text-[50px] w-[100%] text-center">Crypto Currencies</h1> <br />
+      <div className="flex flex-wrap w-[100%] h-[100vh] gap-[40px] justify-center items-center">
+      {data.map((e)=>(
+        <div className="bg-[#f0e4cc] w-[20%] rounded-xl p-[10px] h-[300px] 
+        flex flex-col justify-center items-center gap-[2%]">
+          <h1 className="text-[24px] font-bold">{e.name}</h1>
+          <Image src={e.image} alt={`${e.name} logo`} width={90} height={70} className="
+          w-[90%] h-[80%]"></Image>
+          <p>{e.text}</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ))}
+      </div>
+      </div>
     </div>
-  );
+  )
 }
