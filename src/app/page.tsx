@@ -12,8 +12,25 @@ import sol from "./images/SOL.png";
 import xlm from "./images/XLM.png";
 import xrp from "./images/XRP.png";
 
+interface coinRates {
+  BTC:number,
+  BNB:number,
+  ADA:number,
+  BCH:number,
+  DOGE:number,
+  ETH:number,
+  LTC:number,
+  XLM:number,
+  XRP:number,
+  SOL:number
+}
+
+interface coinData{
+  rates:coinRates
+}
+
 export default function Home(){
-  const [coin, setCoin] = useState<any>(null);
+  const [coin, setCoin] = useState<coinData|null>(null);
   const myKey = '89e31ad7b841131235b156742293c1c2'
   useEffect(()=>{
     fetch(`http://api.coinlayer.com/api/live?access_key=${myKey}`)
