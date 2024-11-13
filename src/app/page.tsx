@@ -98,7 +98,7 @@ export default function Home(){
       <h1 className="text-[50px] w-[100%] text-center">Crypto Currencies</h1> <br />
       <div className="flex flex-wrap w-[100%] h-[100vh] gap-[40px] justify-center items-center">
       {data.map((e)=>(
-        <div className="bg-[#f0e4cc] w-[20%] rounded-xl p-[10px] h-[300px] 
+        <div key={e.name} className="bg-[#f0e4cc] w-[20%] rounded-xl p-[10px] h-[300px] 
         flex flex-col justify-center items-center gap-[2%]">
           <h1 className="text-[24px] font-bold">{e.name}</h1>
           <Image src={e.image} alt={`${e.name} logo`} width={90} height={70} className="
